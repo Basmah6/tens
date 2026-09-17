@@ -1,0 +1,402 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --brand-primary: #214ecf;
+    --brand-primary-hover: #1b41b0;
+    --brand-primary-dark: #163591;
+    --brand-orange: #ea9835;
+    --brand-light-blue: #84a5f2;
+    --brand-peach: #fcded6;
+    --brand-coral: #e06045;
+
+    /* Eye-Comfort Neutral Scale (Soft Dark Gray to prevent visual fatigue) */
+    --text-primary: #2D3748;
+    --text-headings: #1E293B;
+    --text-muted: #64748B;
+    --text-subtle: #94A3B8;
+    --bg-canvas: #F8FAFC;
+    --bg-surface: #FFFFFF;
+    --bg-surface-elevated: #FFFFFF;
+    --border-soft: rgba(226, 232, 240, 0.85);
+    --border-card: #E2E8F0;
+
+    /* Tense-Specific Calm Pastel Palette */
+    /* Present: Mint / Soft Emerald */
+    --tense-present-bg: #ECFDF5;
+    --tense-present-text: #065F46;
+    --tense-present-border: #A7F3D0;
+    --tense-present-accent: #059669;
+    --tense-present-active: #047857;
+
+    /* Past: Slate / Muted Navy */
+    --tense-past-bg: #F1F5F9;
+    --tense-past-text: #334155;
+    --tense-past-border: #CBD5E1;
+    --tense-past-accent: #475569;
+    --tense-past-active: #1E293B;
+
+    /* Future: Soft Lavender / Iris */
+    --tense-future-bg: #EEF2FF;
+    --tense-future-text: #4338CA;
+    --tense-future-border: #C7D2FE;
+    --tense-future-accent: #6366F1;
+    --tense-future-active: #4F46E5;
+
+    /* Soft Micro-Depth Elevation Shadows */
+    --shadow-soft-card: 0 1px 3px 0 rgba(15, 23, 42, 0.03), 0 10px 25px -5px rgba(15, 23, 42, 0.05), 0 4px 10px -2px rgba(15, 23, 42, 0.02);
+    --shadow-soft-hover: 0 14px 30px -6px rgba(15, 23, 42, 0.08), 0 6px 14px -3px rgba(15, 23, 42, 0.04);
+    --shadow-tactile-btn: 0 3px 0 0 rgba(0, 0, 0, 0.08), 0 4px 10px -1px rgba(0, 0, 0, 0.05);
+    --shadow-tactile-btn-hover: 0 4px 0 0 rgba(0, 0, 0, 0.08), 0 6px 14px -1px rgba(0, 0, 0, 0.08);
+  }
+
+  /* منع المربع الأزرق التلقائي عند النقر في الجوال */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Alexandria', 'IBM Plex Sans Arabic', 'Almarai', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    line-height: 1.7;
+    letter-spacing: 0.005em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Optimized Heading Line-Heights and Contrast */
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text-headings);
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    line-height: 1.75;
+  }
+}
+
+.font-arabic {
+  font-family: 'Alexandria', 'IBM Plex Sans Arabic', 'Almarai', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: normal;
+  line-height: 1.7;
+}
+
+.font-sans-en {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.01em;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', 'Plus Jakarta Sans', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   Micro-Depth Buttons & Tactile Interactivity
+   ========================================================================== */
+
+/* منع تحديد النصوص في الأزرار والبطاقات التفاعلية لتجربة تشبه التطبيقات */
+button, .card, .timeline-item, .nav-btn {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Universal tactile button behavior: crisp clickability and smooth transitions */
+button {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* الزر في حالته الطبيعية */
+.btn-primary {
+  background-color: #4f46e5;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-weight: 600;
+  /* ظل سفلي يمثل عمق الزر */
+  box-shadow: 0 4px 0 #3730a3, 0 8px 16px rgba(79, 70, 229, 0.15);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  cursor: pointer;
+}
+
+/* عند تحريك الماوس فوق الزر */
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 #3730a3, 0 10px 20px rgba(79, 70, 229, 0.2);
+}
+
+/* عند الضغط الفعلي على الزر (In-set Action) */
+.btn-primary:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #3730a3, 0 2px 4px rgba(79, 70, 229, 0.1);
+}
+
+/* Primary Tactile Button (Soft 3D Bottom Lip & Elevating Hover) */
+.btn-tactile-primary,
+button.bg-\[\#214ecf\],
+button.bg-blue-600 {
+  box-shadow: 0 3px 0 0 #18389c, 0 5px 12px -2px rgba(33, 78, 207, 0.24);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-tactile-primary:hover,
+button.bg-\[\#214ecf\]:hover,
+button.bg-blue-600:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 0 0 #18389c, 0 8px 18px -2px rgba(33, 78, 207, 0.3);
+}
+
+.btn-tactile-primary:active,
+button.bg-\[\#214ecf\]:active,
+button.bg-blue-600:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 0 #18389c, 0 2px 6px rgba(33, 78, 207, 0.18);
+}
+
+/* Dark Accent Tactile Button */
+button.bg-\[\#0F172A\],
+button.bg-slate-900 {
+  box-shadow: 0 3px 0 0 #020617, 0 4px 10px rgba(15, 23, 42, 0.2);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+button.bg-\[\#0F172A\]:hover,
+button.bg-slate-900:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 0 0 #020617, 0 7px 16px rgba(15, 23, 42, 0.25);
+}
+
+button.bg-\[\#0F172A\]:active,
+button.bg-slate-900:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 0 #020617, 0 2px 4px rgba(15, 23, 42, 0.15);
+}
+
+/* Secondary / Light Tactile Button */
+.btn-tactile-secondary,
+button.bg-slate-50,
+button.bg-slate-100,
+button.bg-white {
+  box-shadow: 0 2px 0 0 #E2E8F0, 0 2px 4px rgba(15, 23, 42, 0.02);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-tactile-secondary:hover,
+button.bg-slate-50:hover,
+button.bg-slate-100:hover,
+button.bg-white:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 0 #CBD5E1, 0 4px 8px rgba(15, 23, 42, 0.04);
+}
+
+.btn-tactile-secondary:active,
+button.bg-slate-50:active,
+button.bg-slate-100:active,
+button.bg-white:active {
+  transform: translateY(1.5px);
+  box-shadow: 0 0.5px 0 0 #CBD5E1, 0 1px 2px rgba(15, 23, 42, 0.02);
+}
+
+/* ==========================================================================
+   Cards & Containers Elevation Styling (Consistent 12px-16px Soft Radii)
+   ========================================================================== */
+.card-soft-elevated {
+  background-color: var(--bg-surface);
+  border-radius: 16px;
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft-card);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04);
+}
+
+.card-soft-elevated:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft-hover);
+  border-color: rgba(203, 213, 225, 0.95);
+}
+
+/* Global Card Softening */
+.rounded-xl {
+  border-radius: 14px;
+}
+
+.rounded-2xl {
+  border-radius: 16px;
+}
+
+/* Subtle elevation for all white container cards */
+div.bg-white.rounded-xl,
+div.bg-white.rounded-2xl {
+  box-shadow: var(--shadow-soft-card);
+  border-color: var(--border-soft);
+}
+
+/* Smooth hover elevation on interactive cards */
+div.bg-white.rounded-xl.cursor-pointer:hover,
+div.bg-white.rounded-2xl.cursor-pointer:hover {
+  box-shadow: var(--shadow-soft-hover);
+}
+
+/* ==========================================================================
+   Tense-Specific Pastel Accents (Eye Comfort & Clear Categorization)
+   ========================================================================== */
+
+/* Present: Mint / Soft Emerald */
+.tense-badge-present {
+  background-color: var(--tense-present-bg);
+  color: var(--tense-present-text);
+  border: 1px solid var(--tense-present-border);
+}
+
+.tense-btn-present-active {
+  background-color: var(--tense-present-accent) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 3px 0 0 var(--tense-present-active), 0 4px 10px rgba(5, 150, 105, 0.25) !important;
+}
+
+/* Past: Slate / Muted Navy */
+.tense-badge-past {
+  background-color: var(--tense-past-bg);
+  color: var(--tense-past-text);
+  border: 1px solid var(--tense-past-border);
+}
+
+.tense-btn-past-active {
+  background-color: var(--tense-past-accent) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 3px 0 0 var(--tense-past-active), 0 4px 10px rgba(71, 85, 105, 0.25) !important;
+}
+
+/* Future: Soft Lavender / Iris */
+.tense-badge-future {
+  background-color: var(--tense-future-bg);
+  color: var(--tense-future-text);
+  border: 1px solid var(--tense-future-border);
+}
+
+.tense-btn-future-active {
+  background-color: var(--tense-future-accent) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 3px 0 0 var(--tense-future-active), 0 4px 10px rgba(99, 102, 241, 0.25) !important;
+}
+
+/* ==========================================================================
+   Timeline & Progress Elements (Pill-shaped borders & Elegant Indicator Dots)
+   ========================================================================== */
+.progress-track-pill {
+  background-color: #F1F5F9;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 9999px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.progress-bar-smooth {
+  border-radius: 9999px;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.indicator-dot {
+  position: relative;
+  display: inline-block;
+  border-radius: 9999px;
+}
+
+.indicator-dot::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 9999px;
+  border: 2px solid currentColor;
+  opacity: 0.35;
+  animation: pulseGlow 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Badges with Smooth Pill Shape & Micro-Border */
+.pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border-radius: 9999px;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+}
+
+/* ==========================================================================
+   Custom Smooth Scrollbar & Animation Utilities
+   ========================================================================== */
+/* تخصيص عرض شريط التمرير */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* خلفية الشريط */
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+/* المقبض المتحرك */
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+/* عند التمرير عليه بالماوس */
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.15);
+  }
+}
+
+.animate-pulseGlow {
+  animation: pulseGlow 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
